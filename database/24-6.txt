@@ -1,0 +1,125 @@
+24-6-22:
+CREATE DATABASE 16june;
+DROP DATABASE 16june;
+USE 16june;
+********************
+CREATE TABLE student (id INT PRIMARY KEY,NAME VARCHAR(20),email VARCHAR(50));
+ALTER TABLE student ADD COLUMN phno INT;
+ALTER TABLE student MODIFY COLUMN phno VARCHAR(50);
+ALTER TABLE student DROP COLUMN phno ;
+ALTER TABLE student RENAME TO STD;
+TRUNCATE STD;
+DROP TABLE STD;
+*****************************
+INSERT INTO student (id,NAME,email) VALUES (1,'tops','tops@gmail.com');
+INSERT INTO student (id,NAME) VALUES (3,'ravina');
+UPDATE student SET email='ravina@gmail.com' WHERE id=3;
+UPDATE student  SET email='abc@gmail.com' WHERE NAME ='tops';
+DELETE FROM student WHERE id=3;
+DELETE FROM student WHERE NAME='tops';
+**********************************************
+
+CREATE TABLE emp(id INT PRIMARY KEY, NAME VARCHAR (20),email VARCHAR (50),dept VARCHAR (50));
+ALTER TABLE emp ADD COLUMN sal INT;
+INSERT INTO emp(id,NAME,email,dept,sal) VALUES (1,'ravina','ravina@gmail.com','testing',20000);
+INSERT INTO emp(id,NAME,email,dept,sal) VALUES (2,'riya','riya@gmail.com','java',15000);
+INSERT INTO emp(id,NAME,email,dept,sal) VALUES (3,'pooja','pooja@gmail.com','php',12500);
+INSERT INTO emp(id,NAME,email,dept,sal) VALUES (4,'parth','parth@gmail.com','testing',8500);
+INSERT INTO emp(id,NAME,email,dept,sal) VALUES (5,'sagar','sagar@gmail.com','php',5000);
+INSERT INTO emp(id,NAME,email,dept,sal) VALUES (6,'nirva','nirva@gmail.com','java',10000);
+INSERT INTO emp(id,NAME,email,dept,sal) VALUES (7,'parshad','parshad@gmail.com','software',16500);
+SELECT * FROM emp;
+SELECT NAME ,sal FROM emp;
+SELECT DISTINCT dept FROM emp;
+SELECT * FROM emp WHERE dept='java'; 
+SELECT * FROM emp WHERE dept='testing'; 
+SELECT * FROM emp WHERE dept='php'; 
+SELECT * FROM emp WHERE dept='software'; 
+SELECT * FROM emp WHERE dept='software' OR dept='java';
+SELECT * FROM emp WHERE dept='php' AND dept='java';
+SELECT * FROM emp WHERE dept='php' OR dept='java';
+SELECT * FROM emp WHERE dept='java' AND sal>5000;
+SELECT * FROM emp  WHERE dept IN ('java','php');
+SELECT * FROM emp WHERE dept NOT IN ('php');
+SELECT * FROM emp WHERE NAME LIKE 'r%';
+SELECT * FROM emp WHERE NAME LIKE '%a';
+SELECT * FROM emp WHERE NAME LIKE '_a%';
+SELECT * FROM emp WHERE NAME LIKE 'p__%';
+SELECT  MAX(sal) FROM emp;
+SELECT MIN(sal) FROM emp;
+SELECT SUM(sal) FROM emp;
+SELECT AVG(sal) FROM emp;
+SELECT COUNT(sal) FROM emp;
+SELECT * FROM emp WHERE sal=(SELECT MIN(sal) FROM emp);
+SELECT * FROM emp ORDER BY NAME;
+SELECT * FROM emp ORDER BY sal;
+SELECT * FROM emp ORDER BY dept;
+SELECT * FROM emp ORDER BY NAME DESC;
+SELECT * FROM emp ORDER BY sal DESC;
+***************************************
+START TRANSACTION ;
+DELETE FROM emp WHERE id=5;
+
+COMMIT;
+ROLLBACK;
+
+
+***************************************
+SELECT * FROM student WHERE NAME LIKE 'r%'
+SELECT * FROM student WHERE NAME LIKE '%a'
+SELECT *FROM student WHERE NAME LIKE '__a%'
+SELECT *FROM student WHERE NAME LIKE 'r__%'
+
+
+SELECT * FROM student ORDER BY NAME
+SELECT * FROM student ORDER BY sal
+SELECT * FROM student ORDER BY sal DESC
+
+SELECT MAX(sal) FROM student;
+SELECT MIN(sal) FROM student;
+SELECT SUM(sal) FROM student;
+
+SELECT COUNT(*) FROM student;
+
+START TRANSACTION ;
+DELETE FROM student WHERE id=1;
+COMMIT
+ROLLBACK
+
+SELECT * FROM student WHERE sal=(SELECT MIN(sal) FROM student);
+**************************************************
+
+CREATE TABLE author(aid INT PRIMARY KEY AUTO_INCREMENT, aname VARCHAR(20));
+CREATE TABLE book(bid INT PRIMARY KEY AUTO_INCREMENT,bname VARCHAR(20),price DOUBLE,aid INT,FOREIGN KEY(aid) REFERENCES author (aid));
+SELECT * FROM book JOIN author ON book.aid=author.aid;
+SELECT book.bname,author.aname FROM book JOIN author ON book.aid=author.aid;
+SELECT b.bname,a.aname FROM book b JOIN author a ON b.aid=a.aid;
+SELECT COUNT(*) FROM book b JOIN author a ON b.aid=a.aid WHERE a.aname='ravina';
+SELECT b.bname,a.aname FROM book b LEFT JOIN author a ON b.aid=a.aid;
+SELECT b.bname,a.aname FROM book b RIGHT JOIN author a ON b.aid=a.aid;
+SELECT b.bname,a.aname FROM book b LEFT JOIN author a ON b.aid=a.aid UNION SELECT b.bname,a.aname FROM book b RIGHT JOIN author a ON b.aid=a.aid;
+************************************************
+
+CREATE TABLE product(pid INT PRIMARY KEY AUTO_INCREMENT,pname VARCHAR(20),price DOUBLE);
+ALTER TABLE product DROP COLUMN pcategery ;
+ALTER TABLE product ADD COLUMN cid(INT);
+
+
+CREATE TABLE product(pid INT PRIMARY KEY AUTO_INCREMENT,pname VARCHAR(20),price DOUBLE);
+
+
+CREATE TABLE productcategery(cid INT PRIMARY KEY AUTO_INCREMENT,cname VARCHAR(20));
+******************************************************
+CREATE TABLE product(pid INT PRIMARY KEY AUTO_INCREMENT,pname VARCHAR(20),price DOUBLE);
+ALTER TABLE product DROP COLUMN pcategery ;
+ALTER TABLE product ADD COLUMN cid(INT);
+
+
+CREATE TABLE product(pid INT PRIMARY KEY AUTO_INCREMENT,pname VARCHAR(20),price DOUBLE);
+
+
+CREATE TABLE productcategery(cid INT PRIMARY KEY AUTO_INCREMENT,cname VARCHAR(20));
+
+
+
+
